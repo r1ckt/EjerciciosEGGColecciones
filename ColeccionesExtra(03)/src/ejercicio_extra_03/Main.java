@@ -44,13 +44,11 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n").useLocale(Locale.US);
-        HashSet<Libreria> libros = new HashSet<>();
+        LibreriaService libreriaService = new LibreriaService();
         String respuesta = "";
 
         do {
-            Libreria libro = new Libreria();
-
-            System.out.println("--------MENU-------");
+            
             System.out.println("1- Agregar libro");
             System.out.println("2- Mostrar libros");
             System.out.println("3- Prestar libro");
@@ -60,60 +58,16 @@ public class Main {
             respuesta = scan.next();
             switch (respuesta) {
                 case "1":
-
-                    System.out.println("");
-                    System.out.println("A continuacion, ingrese datos del libro");
-                    System.out.println("Titulo: ");
-                    libro.setTitulo(scan.next());
-                    System.out.println("Autor: ");
-                    libro.setAutor(scan.next());
-                    System.out.println("Cantidad de ejemplares: ");
-                    libro.setCantEjemplares(scan.nextInt());
-                    System.out.println("Cantidad de ejemplares prestados");
-                    libro.setCantEjemplaresPrestados(scan.nextInt());
-
-                    libros.add(libro);
-                    System.out.println("El libro se añadio con exito.");
+                    libreriaService.crearLibro();
                     break;
                 case "2":
-                    Iterator<Libreria> it = libros.iterator();
-                    while (it.hasNext()) {
-                        System.out.println(it.next());
-                    }
+                    libreriaService.mostrarLibros();
                     break;
                 case "3":
-                    System.out.println("Ingrese el título del libro que desea prestar: ");
-                    String tituloLibro = scan.next();
-
-                    for (Libreria valor : libros) {
-                        if (tituloLibro.equals(valor.getTitulo())) {
-
-                            if (valor.prestamo()) {
-                                System.out.println("Se presto el libro: " + tituloLibro + ".");
-                            } else {
-                                System.out.println("Disculpas, en estos momentos solo tenemos una copia de " + tituloLibro + " disponible.");
-                            }
-                        } else {
-                            System.out.println(tituloLibro + " no se encuentra disponible en la libreria.");
-
-                        }
-                    }
-
+                    libreriaService.prestamo();
                     break;
                 case "4":
-                    System.out.println("Ingrese el título del libro que desea devolver: ");
-                    tituloLibro = scan.next();
-                    for (Libreria valor : libros) {
-                        if (tituloLibro.equals(valor.getTitulo())) {
-                            if (valor.devolucion()) {
-                                System.out.println("Se devolvio " + tituloLibro + " a la librería.");
-                            } else {
-                                System.out.println("No se registraron prestamos de " + tituloLibro);
-                            }
-                        } else {
-                            System.out.println(tituloLibro + " no pertenece a la librería.");
-                        }
-                    }
+                    libreriaService.devolucion();
                     break;
                 case "5":
                     System.out.println("Saliendo...");

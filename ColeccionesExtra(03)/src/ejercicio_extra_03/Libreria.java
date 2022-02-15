@@ -1,7 +1,5 @@
 package ejercicio_extra_03;
 
-import java.util.Locale;
-import java.util.Scanner;
 
 public class Libreria {
 
@@ -52,26 +50,6 @@ public class Libreria {
         this.cantEjemplaresPrestados = cantEjemplaresPrestados;
     }
 
-    public boolean prestamo() {
-        if (cantEjemplaresPrestados < cantEjemplares) {
-            cantEjemplaresPrestados++;
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
-    public boolean devolucion() {
-        if (cantEjemplaresPrestados == 0) {
-            // si no hay ningun ejemplar prestado, retornamos falso.
-            return false;
-        } else {
-            // si existen ejemplares prestados, disminuimos en 1 la cantidad de prestados y devolvemos true
-            cantEjemplaresPrestados--;
-            return true;
-        }
-    }
 
     @Override
     public String toString() {
