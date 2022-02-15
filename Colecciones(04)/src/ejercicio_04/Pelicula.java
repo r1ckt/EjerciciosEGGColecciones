@@ -1,17 +1,17 @@
 package ejercicio_04;
 
-import java.util.Comparator;
+import java.time.LocalTime;
 
 public class Pelicula {
 
     private String titulo;
     private String director;
-    private Double duracion;
+    private LocalTime duracion;
 
     public Pelicula() {
     }
 
-    public Pelicula(String titulo, String director, Double duracion) {
+    public Pelicula(String titulo, String director, LocalTime duracion) {
         this.titulo = titulo;
         this.director = director;
         this.duracion = duracion;
@@ -33,34 +33,13 @@ public class Pelicula {
         this.director = director;
     }
 
-    public Double getDuracion() {
+    public LocalTime getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(Double duracion) {
+    public void setDuracion(LocalTime duracion) {
         this.duracion = duracion;
     }
-
-    public static Comparator<Pelicula> ordenarSegunDuracionDesc = new Comparator<Pelicula>() {
-        @Override
-        public int compare(Pelicula o1, Pelicula o2) {
-            return o2.getDuracion().compareTo(o1.getDuracion());
-        }
-    };
-    
-    public static Comparator<Pelicula> ordenarSegunTituloAlf = new Comparator<Pelicula>() {
-        @Override
-        public int compare(Pelicula o2, Pelicula o1) {
-            return o2.getTitulo().compareTo(o1.getTitulo());
-        }
-    };
-    
-    public static Comparator<Pelicula> ordenarSegunDirectorAlf = new Comparator<Pelicula>() {
-        @Override
-        public int compare(Pelicula o2, Pelicula o1) {
-            return o2.getDirector().compareTo(o1.getDirector());
-        }
-    };
 
     @Override
     public String toString() {

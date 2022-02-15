@@ -13,7 +13,6 @@ Siendo este promedio final, devuelto por el método y mostrado en el main
  */
 package ejercicio_03;
 
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -21,48 +20,38 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n").useLocale(Locale.US);
-        ArrayList<Alumno> alumnos = new ArrayList<>();
-        Alumno alumno = new Alumno();
-
-        while (true) {
-            System.out.println("Ingrese el nombre del alumno: ");
-            alumno.setNombre(scan.next());
-
-            System.out.println("Ingrese la primer nota: ");
-            alumno.cargarNota(scan.nextInt());
-
-            System.out.println("Ingrese la segunda nota: ");
-            alumno.cargarNota(scan.nextInt());
-
-            System.out.println("Ingrese la tercer nota: ");
-            alumno.cargarNota(scan.nextInt());
-
-            alumnos.add(alumno);
-
-            System.out.println("Desea crear otro alumno? Si/No");
-            String opcion = scan.next().toLowerCase();
-
-            if (opcion.equals("no")) {
-                break;
-            } else if (opcion.equals("si")) {
-                continue;
-            }
-
-        }
+        AlumnoService alumnoService = new AlumnoService();
+        String respuesta = "";
         
-        System.out.println();
-        System.out.println("Ingrese el nombre de un alumno para calcular su promedio: ");
-        
-        String nombreAlumno = scan.next();
-        boolean flag = false;
-        for (Alumno alumno1 : alumnos) {
-            if (alumno.getNombre().equals(nombreAlumno)) {
-                flag = true;
+        do {
+            System.out.println("A continuacion, ingrese datos del alumno");
+            alumnoService.crearAlumno();
+            System.out.println("Desea agregar otro alumno? Si/No");
+            respuesta = scan.next();
+        } while (respuesta.equalsIgnoreCase("si"));
+
+        do {
+            System.out.println("1- Ver las notas de un alumno");
+            System.out.println("2- Ver el promedio general de un alumno");
+            System.out.println("3- Salir");
+            respuesta = scan.next();
+
+            switch (respuesta) {
+                case "1":
+                    System.out.println("Ingrese el nombre del alumno: ");
+                    alumnoService.imprimirNotas(scan.next());
+                    break;
+                case "2":
+                    System.out.println("Ingrese el nombre del alumno: ");
+                    alumnoService.calcularNotaFinal(scan.next());
+                    break;
+                case "3":
+                    System.out.println("Cerrando el programa...");
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
             }
-        }
-        if (flag) {
-            alumno.notaFinal(nombreAlumno);
-        }
+        } while (!respuesta.equalsIgnoreCase("3"));
 
     }
 }
