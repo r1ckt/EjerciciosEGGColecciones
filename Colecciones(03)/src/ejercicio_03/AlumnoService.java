@@ -1,69 +1,101 @@
 package ejercicio_03;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 
-
 public class AlumnoService {
-    
+
     private ArrayList<Alumno> alumnos;
-    
-    public AlumnoService(){
+    private Scanner scan;
+
+    public AlumnoService() {
         this.alumnos = new ArrayList<>();
+        this.scan = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n").useLocale(Locale.US);
     }
-    
-    public void crearAlumno(){
-        Scanner scan = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n").useLocale(Locale.US);
-        Alumno alumno = new Alumno();
-        
+
+    public void solicitarDatos() {
+
         System.out.println("Nombre del alumno: ");
-        alumno.setNombre(scan.next());
+        String nombre = this.scan.next();
         System.out.println("Primer nota:");
-        alumno.setNota1(scan.nextInt());
+        int nota1 = this.scan.nextInt();
         System.out.println("Segunda nota: ");
-        alumno.setNota2(scan.nextInt());
+        int nota2 = this.scan.nextInt();
         System.out.println("Tercer nota: ");
-        alumno.setNota3(scan.nextInt());
-        
+        int nota3 = this.scan.nextInt();
+
+        crearAlumno(nombre, new ArrayList<>(Arrays.asList(nota1, nota2, nota3)));
+    }
+
+    public void crearAlumno(String nombre, ArrayList<Integer> notas) {
+        Alumno alumno = new Alumno();
+
+        alumno.setNombre(nombre);
+        alumno.setNotas(notas);
+
         agregarAlumno(alumno);
         System.out.println("Se agrego el alumno con éxito.");
-        
+
     }
-    public void agregarAlumno(Alumno alumno){
+
+    public void agregarAlumno(Alumno alumno) {
         alumnos.add(alumno);
     }
-    
-    public void imprimirNotas(String nombre){
-        boolean flag = false;
-        for (Alumno alumno : alumnos) {
-            if(alumno.getNombre().equalsIgnoreCase(nombre)){
-            System.out.printf("Nombre: %s \n" , alumno.getNombre());
-            System.out.printf("Nota 1: %d \n" , alumno.getNota1());
-            System.out.printf("Nota 2: %d \n" , alumno.getNota2());
-            System.out.printf("Nota 3: %d \n" , alumno.getNota3());
-            flag = true;
-            }
+
+    public Alumno buscarAlumno(String nombre) {
+        Alumno alumnoReturn = null;
+
+        for (Alumno alumno : this.alumnos) {
+            if (alumno.getNombre().equalsIgnoreCase(nombre));
+            return alumno;
         }
-        if(!flag){
-            System.out.println("No se encontraron datos de " + nombre);
-        }
+
+        return alumnoReturn;
     }
-    
-    public void calcularNotaFinal(String nombre){
+
+    public double calcularNotaFinal(Alumno alumno) {
         int sum = 0;
-        for (Alumno alumno : alumnos) {
-             if(alumno.getNombre().equalsIgnoreCase(nombre)){
-             sum = alumno.getNota1() + alumno.getNota3() + alumno.getNota2();    
-             }
+        for (Integer nota : alumno.getNotas()) {
+            sum += nota;
         }
-        System.out.printf("Promedio general de %s: %.2f\n", nombre ,1.0 * sum/3 ); ;
+        return (double) sum / alumno.getNotas().size();
     }
-    
-    public void imprimirAlumnos(){
-        for (Alumno alumno : alumnos) {
-            System.out.println(alumno);
+
+    public void procesamientoPrincipal() {
+        String respuesta = "";
+        do {
+            if (this.alumnos.isEmpty()) {
+                solicitarDatos();
+            } else {
+                System.out.println("Desea ingresar otro alumno? Si/No");
+                respuesta = this.scan.next().toUpperCase();
+
+                switch (respuesta) {
+                    case "SI":
+                        solicitarDatos();
+                        break;
+                    case "NO":
+                        System.out.println("Operacion finalizada.");
+                        break;
+                    default:
+                        System.out.println("Opción inválida.");
+                        break;
+                }
+            }
+        } while (respuesta.equalsIgnoreCase("si"));
+    }
+
+    public void procesamientoSecundario() {
+        System.out.println("Ingrese el nombre del alumno que desea hallar: ");
+        String nombre = this.scan.next();
+        Alumno alumno = buscarAlumno(nombre);
+
+        if (alumno != null) {
+            System.out.printf("%.2f\n", calcularNotaFinal(alumno));
+        } else {
+            System.out.println("No se encontro alumno con ese nombre.");
         }
     }
-    
 }

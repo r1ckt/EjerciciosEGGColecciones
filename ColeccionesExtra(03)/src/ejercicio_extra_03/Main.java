@@ -35,49 +35,13 @@ false en caso contrario.
  */
 package ejercicio_extra_03;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n").useLocale(Locale.US);
         LibreriaService libreriaService = new LibreriaService();
-        String respuesta = "";
-
-        do {
-            
-            System.out.println("1- Agregar libro");
-            System.out.println("2- Mostrar libros");
-            System.out.println("3- Prestar libro");
-            System.out.println("4- Devolver libro");
-            System.out.println("5- Salir");
-
-            respuesta = scan.next();
-            switch (respuesta) {
-                case "1":
-                    libreriaService.crearLibro();
-                    break;
-                case "2":
-                    libreriaService.mostrarLibros();
-                    break;
-                case "3":
-                    libreriaService.prestamo();
-                    break;
-                case "4":
-                    libreriaService.devolucion();
-                    break;
-                case "5":
-                    System.out.println("Saliendo...");
-                    break;
-                default:
-                    System.out.println("Opción invalida.");
-            }
-
-        } while (!respuesta.equalsIgnoreCase("5"));
-
+        
+        libreriaService.procesamientoPrincipal();
     }
 
 }

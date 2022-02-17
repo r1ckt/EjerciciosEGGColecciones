@@ -13,45 +13,13 @@ Siendo este promedio final, devuelto por el método y mostrado en el main
  */
 package ejercicio_03;
 
-import java.util.Locale;
-import java.util.Scanner;
-
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n").useLocale(Locale.US);
         AlumnoService alumnoService = new AlumnoService();
-        String respuesta = "";
-        
-        do {
-            System.out.println("A continuacion, ingrese datos del alumno");
-            alumnoService.crearAlumno();
-            System.out.println("Desea agregar otro alumno? Si/No");
-            respuesta = scan.next();
-        } while (respuesta.equalsIgnoreCase("si"));
 
-        do {
-            System.out.println("1- Ver las notas de un alumno");
-            System.out.println("2- Ver el promedio general de un alumno");
-            System.out.println("3- Salir");
-            respuesta = scan.next();
-
-            switch (respuesta) {
-                case "1":
-                    System.out.println("Ingrese el nombre del alumno: ");
-                    alumnoService.imprimirNotas(scan.next());
-                    break;
-                case "2":
-                    System.out.println("Ingrese el nombre del alumno: ");
-                    alumnoService.calcularNotaFinal(scan.next());
-                    break;
-                case "3":
-                    System.out.println("Cerrando el programa...");
-                    break;
-                default:
-                    System.out.println("Opción inválida.");
-            }
-        } while (!respuesta.equalsIgnoreCase("3"));
+        alumnoService.procesamientoPrincipal();
+        alumnoService.procesamientoSecundario();
 
     }
 }

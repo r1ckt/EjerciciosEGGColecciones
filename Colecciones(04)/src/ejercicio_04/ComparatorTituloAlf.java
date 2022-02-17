@@ -2,7 +2,7 @@ package ejercicio_04;
 
 import java.util.Comparator;
 
-public class ComparatorTitulo implements Comparator<Pelicula> {
+public class ComparatorTituloAlf implements Comparator<Pelicula> {
 
     @Override
     public int compare(Pelicula t, Pelicula t1) {

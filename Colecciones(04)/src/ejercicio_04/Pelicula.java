@@ -43,7 +43,7 @@ public class Pelicula {
 
     @Override
     public String toString() {
-        return "Pelicula:\n " + "Titulo: " + titulo + "\n Director: " + director + "\n Duracion: " + duracion + "hr ";
+        return "Pelicula:\n " + "Titulo: " + titulo + "\n Director: " + director + "\n Duracion: " + duracion.getHour() + "hr" + duracion.getMinute() + "min"; 
     }
 
 }
