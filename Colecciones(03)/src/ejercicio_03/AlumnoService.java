@@ -2,6 +2,7 @@ package ejercicio_03;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -16,6 +17,7 @@ public class AlumnoService {
     }
 
     public void solicitarDatos() {
+        ArrayList<Integer> notas = new ArrayList<>();
 
         System.out.println("Nombre del alumno: ");
         String nombre = this.scan.next();
@@ -26,7 +28,11 @@ public class AlumnoService {
         System.out.println("Tercer nota: ");
         int nota3 = this.scan.nextInt();
 
-        crearAlumno(nombre, new ArrayList<>(Arrays.asList(nota1, nota2, nota3)));
+        notas.add(nota1);
+        notas.add(nota2);
+        notas.add(nota3);
+
+        crearAlumno(nombre, notas);
     }
 
     public void crearAlumno(String nombre, ArrayList<Integer> notas) {
@@ -48,19 +54,21 @@ public class AlumnoService {
         Alumno alumnoReturn = null;
 
         for (Alumno alumno : this.alumnos) {
-            if (alumno.getNombre().equalsIgnoreCase(nombre));
-            return alumno;
+            if (alumno.getNombre().equalsIgnoreCase(nombre)) {
+                return alumno;
+            }
         }
-
         return alumnoReturn;
     }
 
     public double calcularNotaFinal(Alumno alumno) {
         int sum = 0;
-        for (Integer nota : alumno.getNotas()) {
+        Iterator<Integer> iterator = alumno.getNotas().iterator();
+        while (iterator.hasNext()) {
+            Integer nota = iterator.next();
             sum += nota;
         }
-        return (double) sum / alumno.getNotas().size();
+        return (double) sum / 3;
     }
 
     public void procesamientoPrincipal() {
@@ -84,7 +92,7 @@ public class AlumnoService {
                         break;
                 }
             }
-        } while (respuesta.equalsIgnoreCase("si"));
+        } while (!respuesta.equalsIgnoreCase("NO"));
     }
 
     public void procesamientoSecundario() {

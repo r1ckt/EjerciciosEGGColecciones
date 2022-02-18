@@ -5,10 +5,11 @@ import java.util.ArrayList;
 public class Alumno {
 
     private String nombre;
-    private ArrayList<Integer> notas;
+    private ArrayList<Integer> notas = new ArrayList<>();
+
 
     public Alumno() {
-        this.notas = new ArrayList<>();
+        //this.notas = new ArrayList<>();
     }
 
     public Alumno(String nombre, ArrayList<Integer> notas) {
