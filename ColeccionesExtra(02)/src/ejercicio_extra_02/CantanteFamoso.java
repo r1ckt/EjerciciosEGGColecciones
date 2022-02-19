@@ -30,7 +30,7 @@ public class CantanteFamoso {
 
     @Override
     public String toString() {
-        return "Cantante Famoso\n" + "Nombre: \n" + nombre + "\nDisco con mas ventas:\n" + discoConMasVentas;
+        return "Cantante Famoso\n" + "Nombre: \n" + nombre + "\nDisco más vendido:\n" + discoConMasVentas;
     }
     
     
